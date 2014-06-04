@@ -1,15 +1,15 @@
 Spree::Order.class_eval do
 
-  ABANDONED_EMAIL_TIMEFRAME = 6.hours
+  ABANDONED_EMAIL_TIMEFRAME = 2.seconds
 
-  preference :abandedon_email_timeframe, 6.hours
+  preference :abandedon_email_timeframe, 2.seconds
 
   def self.email_eligible_abandoned_email_orders
     eligible_abandoned_email_orders.each {|o| o.send_abandoned_email }
   end
 
   def self.eligible_abandoned_email_orders
-    where("state != ?
+  where("state != ?
             AND (payment_state IS NULL OR payment_state != ?)
             AND email is NOT NULL
             AND abandoned_email_sent_at IS NULL

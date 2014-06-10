@@ -1,5 +1,5 @@
 Spree::Order.class_eval do
-  #preference :abandedon_email_timeframe, 5.minutes
+  preference :abandedon_email_timeframe, 5.minutes
 
   def self.email_eligible_abandoned_email_orders
     eligible_abandoned_email_orders.each { |o| o.send_abandoned_email }

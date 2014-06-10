@@ -1,0 +1,17 @@
+<%= render :partial => 'spree/admin/shared/configuration_menu' %>
+
+<% content_for :page_title do %>
+  <%= Spree.t(:abandoned_cart_email) %>
+<% end %>
+
+<%= form_tag admin_abandoned_cart_email_path, :method => :put do %>
+  <div data-hook="shipment_vat" class="field config-impostos">
+    <%= hidden_field_tag 'preferences[abandoned_cart_email_active]', '0' %>
+    <%= check_box_tag 'preferences[abandoned_cart_email_active]', '1',  Spree::AbandonedCartEmailConfig::Config[:abandoned_cart_email_active] %>
+    <%= label_tag nil, Spree.t(:abandoned_cart_email_active) %>
+  </div>
+
+  <div class="form-buttons config-impostos" data-hook="buttons">
+    <%= button Spree.t('actions.update'), 'refresh' %>
+  </div>
+<% end %>

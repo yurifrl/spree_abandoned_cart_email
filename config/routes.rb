@@ -1,5 +1,5 @@
 Spree::Core::Engine.add_routes do
-  # namespace :admin do
-  #   namespace :config
-  # end
+  namespace :admin do
+    resource :abandoned_cart_email
+  end
 end

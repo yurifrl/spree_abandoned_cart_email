@@ -6,23 +6,18 @@ namespace :abandoned_cart do
   end
 
   desc "Generate Cron"
-  task generate_cron: :environment do
-    yebo_path    = File.join(File.expand_path('.'))
-    rake_path    = File.join('bin', 'rake')
-    current_user = 'yuri'
-    comand       = "val=\"* * * * * cd #{yebo_path}; #{rake_path} abandoned_cart:send_emails\";  (crontab -u #{current_user} -l; echo \"$val\") | crontab -u #{current_user} -"
-    sh comand
+  task :generate_cron, [:sys_user] => :environment do |t, sys_user|
+    yebo_path = File.join(File.expand_path('.'))
+    rake_path = File.join('bin', 'rake')
+    sh "val=\"* * * * * cd #{yebo_path}; #{rake_path} abandoned_cart:send_emails\";  (crontab -u #{sys_user} -l; echo \"$val\") | crontab -u #{sys_user} -"
   end
 
   desc "Delete Cron"
-  task delete_cron: :environment do
-    current_user = 'yuri'
-    command      = "crontab -u #{current_user} -r"
-
+  task :delete_cron, [:sys_user] => :environment do |t, sys_user|
     begin
-      sh command
+      sh "crontab -u #{sys_user} -r"
     rescue
-      #
+      # If fall here here tried to delete a cron task taht didn't exist
     end
   end
 end

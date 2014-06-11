@@ -17,7 +17,7 @@ namespace :abandoned_cart do
     begin
       sh "crontab -u #{sys_user} -r"
     rescue
-      # If fall here here tried to delete a cron task taht didn't exist
+      # If fall here here, it tried to delete a cron task taht didn't exist
     end
   end
 end
